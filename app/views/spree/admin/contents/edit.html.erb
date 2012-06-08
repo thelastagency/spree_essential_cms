@@ -1,4 +1,4 @@
-<%= link_to t('.images'), admin_page_content_images_url(@page, @content) %>
+<% @resource = @content %>
 
 <%= render :partial => 'spree/admin/shared/page_tabs', :locals => {:current => 'Contents'} %>
 
