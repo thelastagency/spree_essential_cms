@@ -20,6 +20,8 @@ class Spree::Content < ActiveRecord::Base
 
   before_update :delete_attachment!, :if => :delete_attachment
   before_update :reprocess_images_if_context_changed
+  
+  has_many :images, :as => :viewable, :class_name => "Spree::PageImage", :order => :position, :dependent => :destroy
 
   [ :link_text, :link, :body ].each do |property|
     define_method "has_#{property.to_s}?" do

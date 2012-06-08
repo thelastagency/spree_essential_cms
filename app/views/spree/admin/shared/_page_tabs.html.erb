@@ -1,4 +1,4 @@
-<h1><%= (t('.editing_page') + " &ldquo;#{@page.title}&rdquo;").html_safe %></h1>
+<h1><%= (t('.editing_bikes') + " \"#{(@page||@resource).title}\"").html_safe %></h1>
 
 <% content_for :sidebar do %>
 
@@ -13,8 +13,13 @@
       <%= link_to t('.contents'), admin_page_contents_url(@page) %>
     </li>    
     <li<%== ' class="active"' if current == "Images" %>>
-      <%= link_to t('.images'), admin_page_images_url(@page) %>
-    </li>    
+      <%= link_to "Images for page", admin_page_images_url(@root_parent || @page) %>
+    </li>
+	<% if @resource.respond_to?(:page) %>
+    <li<%== ' class="active"' if current == "ContentImages" %>>
+      <%= link_to "Images for page content #{@resource.title if @resource}", admin_page_content_images_url(@resource.page, @resource) %>
+    </li>
+	<% end %>    
   </ul>
   <br clear="clear" />
 

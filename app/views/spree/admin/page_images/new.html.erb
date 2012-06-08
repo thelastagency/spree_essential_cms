@@ -1,10 +1,16 @@
-<%= render :partial => 'spree/admin/shared/page_tabs', :locals => {:current => "Images"} unless request.xhr? %>
+<% 
+def resource_image_path
+	@content_type == "page" ? admin_page_images_url(@resource) : admin_page_content_images_url(@resource.page, @resource)
+end
+ %>
+
+<%= render :partial => 'spree/admin/shared/page_tabs', :locals => {:current => @content_type == "page" ? "Images" : "ContentImages"} unless request.xhr? %>
 
 <h3><%= t("new_image") %></h3>
 
 <%= render 'spree/shared/error_messages', :target => @page_image %>
 
-<%= form_for(@page_image, :url => admin_page_images_path(@page), :html => { :multipart => true }) do |form| %>
+<%= form_for(@page_image, :url => resource_image_path, :html => { :multipart => true }) do |form| %>
   <table class="basic-table">
     <%= render "form", :form => form %>
   </table>

@@ -1,4 +1,11 @@
-<%= render :partial => 'spree/admin/shared/page_tabs', :locals => {:current => "Images"} %>
+<% 
+def resource_image_path
+	@content_type == "page" ? admin_page_images_url(@resource, @page_image) : admin_page_content_images_url(@resource.page, @resource, @page_image)
+end
+ %>
+
+
+<%= render :partial => 'spree/admin/shared/page_tabs', :locals => {:current => @content_type == "page" ? "Images" : "ContentImages"} %>
 
 <% if @page_image.try(:errors).present? %>
   <%= render 'spree/shared/error_messages', :target => @page_image %>

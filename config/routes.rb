@@ -15,6 +15,13 @@ Spree::Core::Engine.routes.append do
       end
     
       resources :contents do
+        resources :images, :controller => "page_images" do
+          collection do
+            post :update_positions
+          end
+        end
+        
+        
         collection do
           post :update_positions
         end

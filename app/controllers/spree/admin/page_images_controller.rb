@@ -18,11 +18,23 @@ class Spree::Admin::PageImagesController < Spree::Admin::ResourceController
   private
   
   def location_after_save
-    admin_page_images_url(@page)
+    @content_type == "page" ? admin_page_images_url(@resource) : admin_page_content_images_url(@resource.page, @resource)
   end
+  
 
   def load_data
-    @page = Spree::Page.find_by_path(params[:page_id])
+
+    if params[:content_id]
+      @resource = Spree::Content.find(params[:content_id])
+      @page = @resource
+      @root_parent = @resource.page
+      @content_type = "content"
+    else
+      @resource = Spree::Page.find_by_path(params[:page_id])
+      @page = @resource
+      @root_parent = @page
+      @content_type = "page"
+    end
   end
 
   def set_viewable
