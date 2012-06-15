@@ -19,7 +19,8 @@ class Spree::Page < ActiveRecord::Base
   scope :visible, active.where(:visible => true)
   
   has_many :contents, :order => :position, :dependent => :destroy
-  has_many :images, :as => :viewable, :class_name => "Spree::PageImage", :order => :position, :dependent => :destroy
+  # has_many :images, :as => :viewable, :class_name => "Spree::PageImage", :order => :position, :dependent => :destroy
+  has_many :images, :as => :viewable, :order => :position, :dependent => :destroy  
   
   before_validation :set_defaults
   after_create :create_default_content

@@ -7,11 +7,20 @@ class Spree::Content < ActiveRecord::Base
   validates_associated :page
   validates_presence_of :title, :page
 
-  has_attached_file :attachment,
-    :styles        => Proc.new{ |clip| clip.instance.attachment_sizes },
-    :default_style => :preview,
-    :url           => "/spree/contents/:id/:style/:basename.:extension",
-    :path          => ":rails_root/public/spree/contents/:id/:style/:basename.:extension"
+  # has_attached_file :attachment,
+  #   :styles        => Proc.new{ |clip| clip.instance.attachment_sizes },
+  #   :default_style => :preview,
+  #   :url           => "/spree/contents/:id/:style/:basename.:extension",
+  #   :path          => ":rails_root/public/spree/contents/:id/:style/:basename.:extension"
+  #   
+  # if Spree::Config[:use_s3]
+  #   s3_creds = { :access_key_id => Spree::Config[:s3_access_key], :secret_access_key => Spree::Config[:s3_secret], :bucket => Spree::Config[:s3_bucket] }
+  #   Spree::PageImage.attachment_definitions[:attachment][:storage] = :s3
+  #   Spree::PageImage.attachment_definitions[:attachment][:s3_credentials] = s3_creds
+  #   Spree::PageImage.attachment_definitions[:attachment][:s3_headers] = ActiveSupport::JSON.decode(Spree::Config[:s3_headers])
+  #   Spree::PageImage.attachment_definitions[:attachment][:bucket] = Spree::Config[:s3_bucket]
+  # end
+
   
   cattr_reader :per_page
   @@per_page = 10
@@ -21,7 +30,8 @@ class Spree::Content < ActiveRecord::Base
   before_update :delete_attachment!, :if => :delete_attachment
   before_update :reprocess_images_if_context_changed
   
-  has_many :images, :as => :viewable, :class_name => "Spree::PageImage", :order => :position, :dependent => :destroy
+  # has_many :images, :as => :viewable, :class_name => "Spree::PageImage", :order => :position, :dependent => :destroy
+  has_many :images, :as => :viewable, :order => :position, :dependent => :destroy
 
   [ :link_text, :link, :body ].each do |property|
     define_method "has_#{property.to_s}?" do

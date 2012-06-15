@@ -26,22 +26,6 @@
     <%= error_message_on :content, :context %>
   <% end %>
 
-  <%= form.field_container :attachment do %>
-    <%= form.label :attachment, t('content.attachment') %><br />
-    <%= form.file_field :attachment %>
-    <%= error_message_on :content, :attachment %>
-  <% end %>
-  
-  <% if @content.attachment.exists?(:mini) %>
-    <%= form.field_container :delete_attachment do %>
-      <%= form.check_box :delete_attachment %>
-      <%= form.label :delete_attachment, t('content.delete_attachment') %><br />
-    <% end %>
-  <% end %>
-  
-  <% if @content.attachment.exists?(:mini) %>
-    <p><%= image_tag @content.attachment.url(:mini) %></p>
-  <% end %>
 
   <%= form.field_container :link do %>
     <%= form.label :link, t('content.link') %><br />
