@@ -20,7 +20,7 @@
   </tr>
   </thead>
   <tbody>
-    <%- @collection.each do |page|%>
+    <%- Spree::Page.all.each do |page|%>
     <tr id="<%= spree_dom_id page %>">
       <td><span class="handle">&nbsp;</span>&nbsp; <%=link_to page.title, object_url(page) %></td>
       <td><%= page.path %></td>
@@ -36,8 +36,6 @@
     <% end %>
   </tbody>
 </table>
-
-<%= paginate @collection %>
 
 <% content_for :sidebar do %>
   <div class="box">
