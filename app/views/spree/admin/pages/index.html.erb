@@ -20,7 +20,7 @@
   </tr>
   </thead>
   <tbody>
-    <%- Spree::Page.all.each do |page|%>
+    <%- Spree::Page.order(:position).all.each do |page|%>
     <tr id="<%= spree_dom_id page %>">
       <td><span class="handle">&nbsp;</span>&nbsp; <%=link_to page.title, object_url(page) %></td>
       <td><%= page.path %></td>
