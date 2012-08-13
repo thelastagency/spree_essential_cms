@@ -1,6 +1,7 @@
 class Spree::PageImage < Spree::Image
   has_attached_file :attachment,
-                    :styles => { :mini => '48x48>', :medium => '427x287>', :hero => '720x430#', :hub_thumb => "95x65#", :hub_info => "245x180#" },
+                    :styles => { :mini => '48x48>', :medium => '427x287>', :hero => '720x430#', 
+                      :hub_thumb => "95x65#", :hub_info => "245x180#", :small => '150x150>', :large => '900x650>' },
                     :default_style => :medium,
                     :url => '/spree/pages/:id/:style/:basename.:extension',
                     :path => ':rails_root/public/spree/pages/:id/:style/:basename.:extension'
